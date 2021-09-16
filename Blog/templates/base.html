@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+{% load static %}
+{% load crispy_forms_tags %}
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <title>Trekk</title>
+    <link rel="icon" type="image/png" href="{% static '' %}images/favicon.png">
+    <!-- Stylesheets -->
+    <link href="{% static '' %}css/bootstrap.css" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link href="{% static '' %}css/style.css" rel="stylesheet">
+    <!-- Stylesheets -->
+    <link href="{% static '' %}css/responsive.css" rel="stylesheet">
+    <!-- Stylesheets -->
+    <link href="{% static '' %}css/owl.carousel.min.css" rel="stylesheet" type="text/css">
+    <!-- Stylesheets -->
+    <link href="{% static '' %}css/theme-colors/default-color.css" rel="stylesheet" id="color" type="text/css">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="{% static '' %}css/switcher.css">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{% static '' %}css/venobox.css" type="text/css" media="screen" />
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{% static '' %}css/fontawesome-all.css">
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,600,700" rel="stylesheet">
+    <link href="{% static 'fontawesome_free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=9">
+</head>
+
+<body>
+    <div class="preloader-area">
+        <div class="spinner">
+            <img src="{% static '' %}images/loader.png" alt="">
+            <h2>Trekk</h2>
+        </div>
+    </div>
+    <div class="page-wrapper">
+        <!-- header -->
+        <div id="boxed">
+            <div class="inner_box">
+                <div class="header_section-3">
+                    <div class="container">
+                        <div class="row">
+                            <!-- navbar -->
+                            <div class="col-md-4 col-sm-12 col-xs-12 res-center">
+                                <div class="logo_box_3">
+                                    <a href="index.html"><img src="{% static '' %}images/white-logo.png" alt=""></a>
+                                </div>
+                            </div>
+                            <!-- advertise -->
+                        </div>
+                    </div>
+                </div>
+                <!-- navbar -->
+                <header class="menu header_navbar header-menu-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-9 col-xs-12 zero-padding text-center">
+                                <nav class="navbar navbar-inverse ">
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar" aria-expanded="false">
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                    </div>
+                                    <div class="navbar-collapse row collapse" id="myNavbar" aria-expanded="false" style="height: 1px;">
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="{% url 'home' %}" aria-expanded="false">Home </a></li>
+                                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">Category <span class="caret"></span></a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="{% url 'home' %}">All</a>
+                                                    </li>
+                                                    {% for c in categories %}
+                                                    <li ><a class="dropdown-item" href="{{c.get_absolute_url}}">{{c.title|title}}</a>
+                                                    </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                            <li><a href="{% url 'contact' %}" aria-expanded="false">CONTACT</a></li>
+                                            <li><a href="{% url 'about' %}" aria-expanded="false">About</a></li>
+                                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                                            {% if request.user.is_authenticated %}
+                                                {{request.user.username}}
+                                            {% else %}
+                                            Profile
+                                            {% endif %}
+                                            <span class="caret"></span></a>
+                                                <ul class="dropdown-menu">
+                                                {% if request.user.is_authenticated %}
+                                                    
+                                                    {% for p in profile %}
+                                                        {% comment %} <li><a href="{{p.get_absolute_url}}">Account</a></li> {% endcomment %}
+                                                    {% endfor %}
+                                                    {% comment %} <li><a href="{% url 'create' %}">Create Blog</a></li> {% endcomment %}
+                                                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                                                {% else %}
+                                                    <li><a href="{% url 'sign' %}">SignUp</a>
+                                                    <li><a href="{% url 'login' %}">Login</a>
+                                                    </li>
+                                                {% endif %}
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3 white-social text-center responsive_none ">
+                            </div>
+                            <div class="col-md-3 col-sm-3 header-3-search text-right">
+                                <div class="border-box">
+                                    <form method="GET" action="{% url 'search' %}">
+                                        <input type="search" name="search" id="search" placeholder="search">
+                                        <span><button style="background-color:inherit;border:none;" ><i class="fa fa-search"></i></button></span>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <!--End pagewrapper-->
+                <div class="clearfix">
+                </div>
+
+
+                {% block main_content %}
+                
+                {% endblock main_content %}
+
+
+                <!--back to top-->
+                <a href="#0" class="cd-top js-cd-top "> <i class="fas fa-angle-up"></i> </a>
+                <!-- back to top-->
+
+                <!--footer section-->
+                <footer class="footer-sec footer-2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="footer_inner">
+                                <div class="col-md-6 col-sm-6 col-xs-12 zero-padding">
+                                    <div class="logo_box">
+                                        <a href="index.html"><img src="{% static '' %}images/white-logo.png" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <!--divider-->
+                                <div class="col-md-12 col-sm-12 cl-xs-12 zero-padding divider">
+                                    <div class="divider-line"></div>
+                                </div>
+                                <!--divider-->
+                                <div class="col-md-6 col-sm-6 col-xs-12 zero-padding">
+                                   <div class="copyrights">
+                                    <p><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></p>
+                                </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12 footer-nav zero-padding res-center responsive_none">
+                                    <div class="social text-right">
+                                        <ul>
+                                            <li><a href="#">PRIVACY POLICY</a></li>
+                                            <li><a href="#">ADVERTISEMENT</a></li>
+                                            <li><a href="#">CONTACT US</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+    <!--Scroll to top-->
+    <script src="{% static '' %}js/jquery.js"></script>
+    <script src="{% static '' %}js/bootstrap.min.js"></script>
+
+    <!--Revolution Slider-->
+    <script src="{% static '' %}js/back-to-top.js"></script>
+    <script src="{% static '' %}js/jquery.twbsPagination.js"></script>
+    <!--End Revolution Slider-->
+    <!-- Isotope -->
+    <!-- PrettyPhoto -->
+    <script src="{% static '' %}fontawesome_free/js/all.min.js"></script>
+    <script src="{% static '' %}js/venobox.min.js"></script>
+    <script src="{% static '' %}js/color-switcher.js"></script>
+    <script src="{% static '' %}js/owl.carousel.js"></script>
+    <script src="{% static '' %}js/jquery-ui.js"></script>
+    <script src="{% static '' %}js/script.js"></script>
+</body>
+
+
+</html>

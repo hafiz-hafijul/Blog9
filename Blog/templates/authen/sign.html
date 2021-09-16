@@ -1,0 +1,29 @@
+{% extends '../base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block main_content %}
+
+<div class="container">
+    <div class="contact-form">
+                <div class="col-sm-12 col-md-12">
+                <div class="contact_form  animated fades">
+                    <h3 class="heading_c">Get in touch with us</h3>
+                    <p class="success" id="success"
+                        style="display:none; color: blue; text-decoration: underline; font-size: 14px;"></p>
+                    <p class="error" id="error"
+                        style="display:none; color: red; text-decoration: underline; font-size: 14px;"></p>
+                    <form name="contact_form" id="contact_form" method="POST" class="row "> {% csrf_token %}
+                        <div class="col-sm-12 col-md-12 form-group">
+                            {{form|crispy}}
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            <input type="submit" id="submit" class="button" value="Signup" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>
+
+{% endblock main_content %}

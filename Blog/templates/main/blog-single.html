@@ -1,0 +1,160 @@
+{% extends '../base.html' %}
+{% load crispy_forms_tags %}
+
+{% block main_content %}
+
+<div class="page-wrapper">
+    <!-- header -->
+    <div id="boxed">
+        <div class="inner_box">
+            <section class="blog_post">
+                <div class="container">
+                    <div class="row">
+                        <!-- left bar-->
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <!-- left bar-->
+                            <div class="inspaction">
+                                <!-- Related post-->
+                                <div class="blog-details">
+                                    <img src="{{post.img_url}}" alt="">
+                                    <div class="blog-para">
+                                        <p class="text-cc">
+                                            {{post.desc}}
+                                        </p>
+                                        <h3>{{post.title}}</h3>
+
+                                        <p class="text-cc justify">
+                                            {{post.content|linebreaks}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="tags-bar col-md-12 col-sm-12 col-xs-12 zero-padding">
+                                        <div class="tag col-md-7 col-sm-6 col-xs-12 zero-padding responsive_margin">
+                                            <ul>
+                                                <li><i class="fas fa-tags defualt-color"></i></li>
+                                                {% for c in category %}
+
+                                                <li><a href="{{c.get_absolute_url}}">{{c.title}},</a></li>
+
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                        <div class="admin-bar  col-md-5 col-sm-6 col-xs-12 zero-padding">
+                                            <ul>
+                                                <li><a href="#"><i
+                                                            class="far fa-user defualt-color"></i></a>{{post.author}}
+                                                </li>
+                                                <li><a href="#"><i
+                                                            class="fas fa-calendar-alt defualt-color"></i></a>{{post.publish}}
+                                                </li>
+                                                <li><a href="#"><i class="far fa-comments defualt-color"></i></a> 3</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+
+                                <div class="about_blog col-md-12 col-sm-12 col-xs-12">
+                                    <h2 class="defualt-color post_heading">Related Post</h2>
+                                    {% for cat in relate %}
+                                    <div class="col-md-4 col-sm-6 col-xs-12 btm_margin zero-padding">
+                                        <div class="post_inner">
+                                            <div class="editor-img">
+                                                <img src="{{cat.img_url}}" alt="">
+                                            </div>
+                                            <div class="editor-details">
+                                                <h5 class="default-clr">{{cat.category}}</h5>
+                                                <h4><a href="link-post.html" class="hover-color">{{cat.title_tag}}</a></h4>
+                                                <p class="text-cc">{{cat.publish}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+
+
+
+                                <div class="about_blog col-md-12 col-sm-12 col-xs-12">
+                                    
+                                    <h2 class="defualt-color comments_heading">{{comment|length }} Comments</h2>
+                                    {% for cmt in comment %}
+                                    <div class="comments_sec  col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+                                        <div class="comment-img">
+                                            <img src="{{cmt.user.Profile.ab_img}}" alt="">
+                                        </div>
+                                        <div class="comment-details">
+                                            <h4>{{cmt.name}}</h4>
+                                            <p class="text-cc">{{cmt.created_at}}</p>
+                                            <p>{{cmt.text}}</p>
+                                        </div>
+
+                                    </div>
+                                    {% endfor %}
+                                    {% for rep in replies %}
+                                    <div
+                                        class="comments_sec col-md-10 col-md-offset-2 col-sm-10 col-xs-12 zero-padding">
+
+                                        <div class="comment-img">
+                                            <img src="{{rep.user.profile.image.url}}" alt="">
+                                        </div>
+                                        <div class="comment-details">
+                                            <h4>{{rep.name}}</h4>
+                                            <p class="text-cc">{{rep.created_at}}</p>
+                                            <p>{{rep.text}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+                                </div>
+
+                                <div class=" col-md-12 col-sm-12 col-xs-12">
+                                    <div class="contact_form  animated fades btm-padding">
+                                        <h2 class="defualt-color">Leave a Reply</h2>
+                                        <p class="text-cc margin_btm">Please sing in to post your comment or singup if
+                                            you dont have account.</p>
+                                        <p class="success" id="success" style="display:none;"></p>
+                                        <p class="error" id="error" style="display:none;"></p>
+                                        <form name="contact_form" action="{% url "single" slug=post.slug %}"
+                                            method="POST" class="row form-group">{% csrf_token %}
+                                            <div class="col-sm-6 col-md-6">
+                                                {{form.name|as_crispy_field}}
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                {{form.email|as_crispy_field}}
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                {{form.subject|as_crispy_field}}
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                {{form.phone|as_crispy_field}}
+                                            </div>
+                                            <div class="col-sm-12 col-md-12">
+                                                {{form.text|as_crispy_field}}
+                                            </div>
+                                            
+                                            <div class="col-sm-4 col-md-4 margin_btm">
+                                                <input type="submit" id="submit" class="button" value="Post Comment" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- inner inspaction -->
+                        </div>
+                        <!-- left bar column 9 -->
+                    </div>
+                    <!-- right bar column 3 -->
+                    <!-- end bar column 3 -->
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+{% endblock main_content %}

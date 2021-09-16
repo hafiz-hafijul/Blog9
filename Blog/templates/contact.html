@@ -1,0 +1,52 @@
+{% extends './base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block main_content %}
+
+<section class="about-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-lg-6 col-xl-6">
+                <div class="contact_img" style=" background-image:url({{con.cont_img}});"></div>
+            </div>
+            <div class="col-sm-12 col-lg-6 col-xl-6">
+                <div>
+                    <h1>Contact us</h1>
+                    <p class="text-cc">
+                       {{con.content}}
+                    </p>
+                    <br>
+                    <br>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="contact-form">
+            <!--Default Form-->
+            <div class="col-sm-12 col-md-12">
+                <div class="contact_form  animated fades">
+                    <h3 class="heading_c">Get in touch with us</h3>
+                    <p class="success" id="success"
+                        style="display:none; color: blue; text-decoration: underline; font-size: 14px;"></p>
+                    <p class="error" id="error"
+                        style="display:none; color: red; text-decoration: underline; font-size: 14px;"></p>
+                    <form name="contact_form" id="contact_form" method="POST" action="{% url 'contact' %}" class="row ">
+                        {% csrf_token %}
+                        <div class="col-sm-12 col-md-12 form-group">
+                            {{form|crispy}}
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            <input type="submit" id="submit" class="button" value="SEND NOW" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--End Default Form-->
+        </div>
+    </div>
+</section>
+
+{% endblock main_content %}

@@ -1,0 +1,145 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block main_content %}
+
+{% include 'main/slide.html' %}
+
+<section class="travel_post">
+    <div class="container">
+        <div class="row">
+
+            <!-- left bar-->
+            <div class="col-md-8 col-sm-12 col-xs-12 zero-padding">
+
+
+                <!-- left bar-->
+                <div class="inspaction">
+                    <!-- Related post-->
+                    <!-- inner inspaction -->
+                    <div class="col-md-12 col-sm-12 col-xs-12 zero-padding">
+                        {% for dt in page_obj  %}
+                        <div class="col-md-6 col-sm-6 col-xs-12 btm-padding">
+                            <div class="img-box">
+                                <img src="{{dt.img_url}}" alt="">
+                            </div>
+                            <div class="post-details col-md-6 col-sm-4 col-xs-4 zero-padding">
+                                <h6 class="default-clr">{{dt.category}}</h6>
+                            </div>
+
+                            <div class="post_response min-post">
+                                <div class="col-md-12 col-sm-12 col-xs-12 zero-padding text-left">
+                                    <h4><a href="{% url 'single' slug=dt.slug %}" class="default-clr-hvr">{{dt.title}}</a></h4>
+                                </div>
+                                <ul class="col-md-12 col-sm-12 col-xs-12 zero-padding text-left">
+                                    <li><a href="#"><i class="fas fa-eye"></i></a>{{dt.total_view}}</li>
+                                    <li><a href="#"><i class="far fa-user"></i></a>{{dt.author}}</li>
+                                    <li><a href="#"><i class="fas fa-calendar-alt"></i></a>{{dt.publish}}</li>
+                                </ul>
+                                <h6 class="col-md-12 col-sm-12 col-xs-12 zero-padding text-left">
+                                    {{dt.cont}} ...
+                                </h6>
+                            </div>
+
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 zero-padding">
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <nav aria-label="Page navigation">
+                            {% if page_obj.has_other_pages %}
+                                <ul class="pagination">
+
+                                    {% if page_obj.has_previous %}
+                                        <li class='page-item' ><a href="?page=1" class='page-link disabled' >&laquo; first</a></li>
+                                        <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+                                    {% endif %}
+
+                                    
+                                    <li class='page-item' >
+                                        <a class="page-link" href="#">{{ page_obj.number }}</a>
+                                    </li>
+                                    <li class='page-item' >
+                                        <a class="page-link" href="#">{{ page_obj.paginator.num_pages }}</a
+                                    </li>
+
+                                    {% if page_obj.has_next %}
+                                        <li class='page-item' ><a href="?page={{ page_obj.next_page_number }}">next</a></li>
+                                        <li class='page-item' ><a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+                                    {% endif %}
+                                </ul>
+                            {% endif %}
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <!-- inner inspaction -->
+
+            </div>
+
+            <!-- left bar column 9 -->
+            <!-- right bar column 3 -->
+            <div class="col-md-4 col-md-offset-0 col-sm-8 col-sm-offset-2 col-xs-12 ">
+                <div class="right-border-box">
+
+                    <div class="recent-post min-top-padding">
+                    {% for recent in first %}
+                        <div class="big-post">
+                            <h2 class="defualt-color">recent post</h2>
+                            <img src="{{recent.img_url}}" alt="">
+                            <h4><a href="audio-post.html" class="default-clr-hvr">{{recent.title|title}}</a></h4>
+                            <p class="date">{{recent.publish}}</p>
+                        </div>
+                    {% endfor %}
+
+                    
+                        <div class="min-top-padding">
+                        {% for nd in second %}
+                            <div class="min-post">
+                                <div class="table-cell">
+                                    <img src="{{nd.img_url}}"  width='150px' alt="img">
+                                </div>
+                                <div class="table-cell min-details">
+                                    <h5><a href="link-post.html" class="default-clr-hvr">{{nd.title_tag|title}}</a></h5>
+                                    <p class="date">{{nd.publish}}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <div class="border-line"></div>
+                    </div>
+
+
+                    <div class="right-categories">
+                        {% comment %} <h3 class="defualt-color text-left">Categories</h3>
+                        <div class="sub-categories list-group">
+                            <a href="#" class="list-group-item text-left">Beauty <span class="badge">(2)</span></a>
+                            <a href="#" class="list-group-item text-left">Inspiration <span class="badge">
+                                    (9)</span></a>
+                            <a href="#" class="list-group-item text-left">Travel <span class="badge">(7)</span></a>
+                            <a href="#" class="list-group-item text-left">Artist <span class="badge"> (5)</span></a>
+                        </div>
+                        <h3 class="defualt-color text-left">Archives</h3>
+                        <div class="archives list-group">
+                            <a href="#" class="list-group-item text-left">May<span class="badge">2017</span></a>
+                            <a href="#" class="list-group-item text-left">April <span class="badge">2017</span></a>
+                            <a href="#" class="list-group-item text-left">March <span class="badge">2017</span></a>
+                        </div> {% endcomment %}
+                        <h3 class="defualt-color text-left">Tags</h3>
+                        <div class="tags">
+                            <ul class="nav nav-pills" role="tablist">
+                            {% for c in categories %}
+                                <li role="presentation"><a href="{{c.get_absolute_url}}">{{c.title|title}} </a></li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- right bar column 3 -->
+            <!-- end bar column 3 -->
+        </div>
+    </div>
+</section>
+
+{% endblock main_content %}
